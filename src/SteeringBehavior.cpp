@@ -39,7 +39,11 @@ Vector2D SteeringBehavior::KinematicFlee(Agent *agent, Agent *target, float dtim
 
 Vector2D SteeringBehavior::Seek(Agent *agent, Vector2D target, float dtime)
 {
-	return Vector2D(0, 0);
+	Vector2D desiredVelocity = target - agent->getPosition();
+	Vector2D steeringForce = desiredVelocity - agent->getVelocity();
+	steeringForce /= agent->getMaxVelocity();
+	steeringForce *= agent->getMaxForce();
+	return steeringForce;
 }
 
 Vector2D SteeringBehavior::Seek(Agent *agent, Agent *target, float dtime)
