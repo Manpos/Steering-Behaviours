@@ -68,3 +68,38 @@ Vector2D SteeringBehavior::Flee(Agent *agent, Agent *target, float dtime)
 {
 	return Flee(agent, target->position, dtime);
 }
+
+Vector2D SteeringBehavior::Arrive(Agent *agent, Vector2D target, float slowRadius, float dtime) 
+{
+	Vector2D distanceVector = target - agent->getPosition();
+	float distanceToTarget = distanceVector.Length();
+
+	Vector2D steeringForce;
+	float factor = distanceToTarget / slowRadius;
+
+	if (distanceToTarget > slowRadius) {
+		return Seek(agent, target, dtime);
+	}
+
+	else if (factor == 0) {
+		return steeringForce;
+	}
+	
+	else {
+
+		Vector2D desiredVelocity = target - agent->getPosition();
+		desiredVelocity.Normalize();
+		desiredVelocity *= agent->getMaxVelocity() * factor;
+
+		steeringForce = desiredVelocity - agent->getVelocity();
+		steeringForce /= agent->getMaxVelocity() * factor;
+		steeringForce *= agent->getMaxForce();
+		return steeringForce;
+	}
+
+}
+
+Vector2D SteeringBehavior::Arrive(Agent *agent, Agent *target, float slowRadius, float dtime) 
+{
+	return Arrive(agent, target->getPosition(), slowRadius, dtime);
+}
