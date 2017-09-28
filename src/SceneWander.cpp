@@ -44,7 +44,8 @@ void SceneWander::update(float dtime, SDL_Event *event)
 	}
 	Vector2D velocity = agents[0]->getVelocity();
 	float angle = (float)(atan2(velocity.y, velocity.x) * RAD2DEG);
-	Vector2D steering_force = agents[0]->Behavior()->Wander(agents[0], angle, &wanderAngle, wanderMaxChange,
+
+	Vector2D steering_force = agents[0]->Behavior()->Wander(agents[0], angle, &agents[0]->wanderAngle, wanderMaxChange,
 		wanderCircleOffset, wanderCircleRadius, dtime);
 	agents[0]->update(steering_force, dtime, event);
 }
