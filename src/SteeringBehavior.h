@@ -24,6 +24,7 @@ public:
 	Vector2D Pursue(Agent *agent, Agent * target, float dtime);
 	Vector2D Evade(Agent *agent, Agent *target, float dtime);
 	Vector2D Wander(Agent *agent, float angle, float *wanderAngle, int wanderMaxChange, int wanderCircleOffset, int wanderCircleRadius, float dtime);
+	Vector2D Flocking(Agent* agent);
 	//etc...
 
 };
