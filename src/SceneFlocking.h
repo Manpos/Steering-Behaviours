@@ -3,6 +3,7 @@
 #include "Scene.h"
 #include "Agent.h"
 
+#define MAX_AGENTS 5
 class SceneFlocking : public Scene
 {
 public:
@@ -13,7 +14,6 @@ public:
 	const char* getTitle();
 private:
 	std::vector<Agent*> agents;
-	short maxAgents;
 	Vector2D target;
 };
 

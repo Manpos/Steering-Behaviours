@@ -118,16 +118,14 @@ Vector2D SteeringBehavior::Evade(Agent *agent, Agent *target, float dtime)
 	Vector2D predictedTarget = target->getPosition() + target->getVelocity()*T;
 	return Flee(agent, predictedTarget, dtime);
 }
-//G
+
 Vector2D SteeringBehavior::Wander(Agent *agent, float angle, float *wanderAngle, int wanderMaxChange, int wanderCircleOffset, int wanderCircleRadius, float dtime) 
 {
 	wanderAngle = wanderAngle + rand() * wanderMaxChange;
-<<<<<<< HEAD
-	//K
-	return 1;
-=======
-	//HELLO HELLO AXEL COME PENES
-	return 89;
->>>>>>> ac79cf58ccc8bf419c5c4bc7e60ce781a04b0ff8
+	return 0;
 }
-//F
+
+Vector2D SteeringBehavior::Flock(std::vector<Agent*> agents, Agent* agent)
+{
+	return Vector2D(0, 0);
+}
