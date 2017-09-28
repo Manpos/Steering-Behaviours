@@ -124,5 +124,6 @@ Vector2D SteeringBehavior::Wander(Agent *agent, float angle, float *wanderAngle,
 	wanderAngle = wanderAngle + rand() * wanderMaxChange;
 	//K
 	return 1;
+	return 89;
 }
 //F
