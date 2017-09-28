@@ -1,5 +1,6 @@
 #include "SteeringBehavior.h"
 
+#include "AuxLib.h"
 
 
 SteeringBehavior::SteeringBehavior()
@@ -121,8 +122,29 @@ Vector2D SteeringBehavior::Evade(Agent *agent, Agent *target, float dtime)
 
 Vector2D SteeringBehavior::Wander(Agent *agent, float angle, float *wanderAngle, int wanderMaxChange, int wanderCircleOffset, int wanderCircleRadius, float dtime) 
 {
+	*wanderAngle += AuxLib::RandomBinomial() * wanderMaxChange;
+	float targetAngle = angle + *wanderAngle;
+	Vector2D circleCenter = agent->getPosition() + agent->getVelocity().Normalize() * wanderCircleOffset;
+	Vector2D targetPosition;
+	targetPosition.x = circleCenter.x + wanderCircleRadius * cos(targetAngle);
+	targetPosition.y = circleCenter.y + wanderCircleRadius * sin(targetAngle);
 	wanderAngle = wanderAngle + rand() * wanderMaxChange;
+<<<<<<< HEAD
 	return 0;
+=======
+<<<<<<< HEAD
+
+	return Seek(agent, targetPosition, dtime);
+=======
+<<<<<<< HEAD
+	//K
+	return 1;
+=======
+	//HELLO HELLO AXEL COME PENES
+	return 89;
+>>>>>>> ac79cf58ccc8bf419c5c4bc7e60ce781a04b0ff8
+>>>>>>> 639f7fcc33e7c6c23b69fc1fcefa3a41fec1e79d
+>>>>>>> 27a4931db88849892e5d1b48a5969663b0be0e3a
 }
 
 Vector2D SteeringBehavior::Flock(std::vector<Agent*> agents, Agent* agent)

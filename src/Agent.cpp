@@ -57,15 +57,6 @@ float Agent::getMaxForce()
 	return max_force;
 }
 
-float Agent::getWanderAngle() 
-{
-	return wanderAngle;
-}
-
-void Agent::setWanderAngle(float newAngle)
-{
-	wanderAngle = newAngle;
-}
 
 void Agent::setPosition(Vector2D _position)
 {
