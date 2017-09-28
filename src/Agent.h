@@ -19,6 +19,8 @@ private:
 	Vector2D velocity;
 	Vector2D target;
 
+	float wanderAngle;
+
 	float mass;
 	float orientation;
 	float max_force;
@@ -41,6 +43,8 @@ public:
 	Vector2D getVelocity();
 	float getMaxVelocity();
 	float getMaxForce();
+	float getWanderAngle();
+	void setWanderAngle(float);
 	void setPosition(Vector2D position);
 	void setTarget(Vector2D target);
 	void setVelocity(Vector2D velocity);

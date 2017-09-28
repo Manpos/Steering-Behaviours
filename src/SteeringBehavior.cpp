@@ -122,5 +122,6 @@ Vector2D SteeringBehavior::Evade(Agent *agent, Agent *target, float dtime)
 Vector2D SteeringBehavior::Wander(Agent *agent, float angle, float *wanderAngle, int wanderMaxChange, int wanderCircleOffset, int wanderCircleRadius, float dtime) 
 {
 	wanderAngle = wanderAngle + rand() * wanderMaxChange;
-	
+	//HELLO HELLO AXEL COME PENES
+	return 0;
 }
