@@ -118,7 +118,7 @@ Vector2D SteeringBehavior::Evade(Agent *agent, Agent *target, float dtime)
 	Vector2D predictedTarget = target->getPosition() + target->getVelocity()*T;
 	return Flee(agent, predictedTarget, dtime);
 }
-
+//G
 Vector2D SteeringBehavior::Wander(Agent *agent, float angle, float *wanderAngle, int wanderMaxChange, int wanderCircleOffset, int wanderCircleRadius, float dtime) 
 {
 	*wanderAngle += AuxLib::RandomBinomial() * wanderMaxChange;
@@ -128,7 +128,17 @@ Vector2D SteeringBehavior::Wander(Agent *agent, float angle, float *wanderAngle,
 	targetPosition.x = circleCenter.x + wanderCircleRadius * cos(targetAngle);
 	targetPosition.y = circleCenter.y + wanderCircleRadius * sin(targetAngle);
 	wanderAngle = wanderAngle + rand() * wanderMaxChange;
+<<<<<<< HEAD
 
 	return Seek(agent, targetPosition, dtime);
+=======
+<<<<<<< HEAD
+	//K
+	return 1;
+=======
+	//HELLO HELLO AXEL COME PENES
+	return 89;
+>>>>>>> ac79cf58ccc8bf419c5c4bc7e60ce781a04b0ff8
+>>>>>>> 639f7fcc33e7c6c23b69fc1fcefa3a41fec1e79d
 }
-
+//F
