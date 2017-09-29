@@ -1,4 +1,5 @@
 #include "SceneWander.h"
+#include "AuxLib.h"
 
 using namespace std;
 
@@ -42,9 +43,15 @@ void SceneWander::update(float dtime, SDL_Event *event)
 	default:
 		break;
 	}
-	Vector2D velocity = agents[0]->getVelocity();
-	float angle = (float)(atan2(velocity.y, velocity.x) * RAD2DEG);
+	Vector2D velocity = agents[0]->getVelocity();	 
 
+	float angle = agents[0]->getOrientation();
+	float angleToUpdate = (float)(atan2(velocity.y, velocity.x) * RAD2DEG);
+	float angleDelta = angleToUpdate - angle;
+	if (angleDelta > 180.0f) { agents[0]->setOrientation(angle + 360.f); }
+	else if (angleDelta < -180.f) { agents[0]->setOrientation(angle - 360.f); }
+	angle = AuxLib::lerp(angle, angleToUpdate, 0.1f);
+	//agents[0]->setOrientation(angle);
 	Vector2D steering_force = agents[0]->Behavior()->Wander(agents[0], angle, &agents[0]->wanderAngle, wanderMaxChange,
 		wanderCircleOffset, wanderCircleRadius, dtime);
 	agents[0]->update(steering_force, dtime, event);
