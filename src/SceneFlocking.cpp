@@ -8,7 +8,7 @@ SceneFlocking::SceneFlocking()
 	for (int i = 0; i < MAX_AGENTS; i++)
 	{
 		agent = new Agent;
-		agent->setPosition(Vector2D(600, 50));
+		agent->setPosition(Vector2D(50*i, 100));
 		agent->setTarget(Vector2D(900, 650));
 		agent->loadSpriteTexture("../res/zombie1.png", 8);
 		agents.push_back(agent);
@@ -45,7 +45,10 @@ void SceneFlocking::update(float dtime, SDL_Event *event)
 
 	for each (Agent* a in agents)
 	{
-		Vector2D steering_force = a->Behavior()->Flock(agents, a);
+		Vector2D steering_force = a->Behavior()->Seek(a, a->getTarget(), dtime);
+		a->update(steering_force, dtime, event);
+		
+		steering_force = a->Behavior()->Flock(agents, a, 1000, 0.5, 0.3, 0.2);
 		a->update(steering_force, dtime, event);
 	}
 }

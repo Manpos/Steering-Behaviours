@@ -132,7 +132,64 @@ Vector2D SteeringBehavior::Wander(Agent *agent, float angle, float *wanderAngle,
 	return Seek(agent, targetPosition, dtime);
 }
 
-Vector2D SteeringBehavior::Flock(std::vector<Agent*> agents, Agent* agent)
+Vector2D SteeringBehavior::Flock(std::vector<Agent*> agents, Agent* agent, float neighborhoodRadius, float separationForceWeight, float cohesionForceWeight, float alignmentForceWeight)
 {
-	return Vector2D(0, 0);
+	int neighborCount = 0;
+
+	//Separation
+	Vector2D separationDirection;
+	Vector2D separationVector = {};
+
+	for each (Agent* a in agents)
+	{
+		if (Vector2D::Distance(a->position, agent->position) < neighborhoodRadius)
+		{
+			separationVector += (agent->position - a->position);
+			neighborCount++;
+		}
+	}
+
+	separationVector /= neighborCount;
+	separationDirection = Vector2D::Normalize(separationVector);
+
+
+	//Cohesion
+	neighborCount = 0;
+	Vector2D cohesionDirection;
+	Vector2D averagePosition = {};
+
+	for each (Agent* a in agents)
+	{
+		if (Vector2D::Distance(a->position, agent->position) < neighborhoodRadius)
+		{
+			averagePosition += a->position;
+			neighborCount++;
+		}
+	}
+
+	averagePosition /= neighborCount;
+	averagePosition -= agent->position;
+	cohesionDirection = Vector2D::Normalize(averagePosition);
+
+	//Alignment
+	neighborCount = 0;
+	Vector2D alignmentDirection;
+	Vector2D averageVelocity = {};
+
+	for each (Agent* a in agents)
+	{
+		if (Vector2D::Distance(a->position, agent->position) < neighborhoodRadius)
+		{
+			averageVelocity += a->velocity;
+			neighborCount++;
+		}
+	}
+
+	averageVelocity /= neighborCount;
+	alignmentDirection = Vector2D::Normalize(averageVelocity);
+	
+	
+	return Vector2D((separationDirection * separationForceWeight) +
+					(cohesionDirection * cohesionForceWeight) +
+					(alignmentDirection * alignmentForceWeight));
 }
