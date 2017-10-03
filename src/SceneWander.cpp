@@ -15,7 +15,6 @@ SceneWander::SceneWander()
 	wanderMaxChange = 50;
 	wanderCircleOffset = 70;
 	wanderCircleRadius = 80;
-	wanderAngle = 0.0f;
 	wanderCircleCenter = {};
 	wanderDisplacementVector = {};
 }
@@ -46,12 +45,12 @@ void SceneWander::update(float dtime, SDL_Event *event)
 	Vector2D velocity = agents[0]->getVelocity();	 
 
 	float angle = agents[0]->getOrientation();
-	float angleToUpdate = (float)(atan2(velocity.y, velocity.x) * RAD2DEG);
+	/*float angleToUpdate = (float)(atan2(velocity.y, velocity.x) * RAD2DEG);
 	float angleDelta = angleToUpdate - angle;
-	if (angleDelta > 180.0f) { agents[0]->setOrientation(angle + 360.f); }
-	else if (angleDelta < -180.f) { agents[0]->setOrientation(angle - 360.f); }
-	angle = AuxLib::lerp(angle, angleToUpdate, 0.1f);
-	//agents[0]->setOrientation(angle);
+	if (angleDelta > 180.0f) { angle = (angle + 360.f); }
+	else if (angleDelta < -180.f) { angle = (angle - 360.f); }
+	angle = AuxLib::lerp(angle, angleToUpdate, 0.1f);*/
+
 	Vector2D steering_force = agents[0]->Behavior()->Wander(agents[0], angle, &agents[0]->wanderAngle, wanderMaxChange,
 		wanderCircleOffset, wanderCircleRadius, dtime);
 	agents[0]->update(steering_force, dtime, event);

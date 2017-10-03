@@ -1,4 +1,5 @@
 #include "Agent.h"
+#include "AuxLib.h"
 
 using namespace std;
 
@@ -115,7 +116,12 @@ void Agent::update(Vector2D steering_force, float dtime, SDL_Event *event)
 
 
 	// Update orientation
-	orientation = (float)(atan2(velocity.y, velocity.x) * RAD2DEG);
+	float angle = orientation;
+	float angleToUpdate = (float)(atan2(velocity.y, velocity.x) * RAD2DEG);
+	float angleDelta = angleToUpdate - angle;
+	if (angleDelta > 180.0f) { angle = (angle + 360.f); }
+	else if (angleDelta < -180.f) { angle = (angle - 360.f); }
+	orientation = AuxLib::lerp(angle, angleToUpdate, 0.01f);
 
 
 	// Trim position values to window size

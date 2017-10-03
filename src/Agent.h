@@ -19,6 +19,8 @@ private:
 	Vector2D velocity;
 	Vector2D target;
 
+	Vector2D *collisionDetection;
+
 	float mass;
 	float orientation;
 	float max_force;

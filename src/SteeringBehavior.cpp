@@ -127,7 +127,6 @@ Vector2D SteeringBehavior::Wander(Agent *agent, float angle, float *wanderAngle,
 	Vector2D targetPosition;
 	targetPosition.x = circleCenter.x + wanderCircleRadius * cos(targetAngle);
 	targetPosition.y = circleCenter.y + wanderCircleRadius * sin(targetAngle);
-	wanderAngle = wanderAngle + rand() * wanderMaxChange;
 
 	return Seek(agent, targetPosition, dtime);
 }
@@ -192,4 +191,13 @@ Vector2D SteeringBehavior::Flock(std::vector<Agent*> agents, Agent* agent, float
 	return Vector2D((separationDirection * separationForceWeight) +
 					(cohesionDirection * cohesionForceWeight) +
 					(alignmentDirection * alignmentForceWeight));
+}
+
+Vector2D SteeringBehavior::CollisionAvoidance(Agent *agent, float height, float width, float dtime)
+{
+	float viewDirection = agent->getOrientation();
+	// Triangle points
+	Vector2D point0 = agent->getPosition();
+	Vector2D point2;
+	return 0;
 }
