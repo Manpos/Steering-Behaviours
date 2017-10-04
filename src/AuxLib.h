@@ -11,4 +11,5 @@ namespace AuxLib {
 		rotatedVector.y = vector.x * sin(orientation*DEG2RAD) + vector.y * cos(orientation*DEG2RAD);
 		return rotatedVector;
 	}
+
 }
