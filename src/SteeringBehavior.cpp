@@ -193,11 +193,27 @@ Vector2D SteeringBehavior::Flock(std::vector<Agent*> agents, Agent* agent, float
 					(alignmentDirection * alignmentForceWeight));
 }
 
-Vector2D SteeringBehavior::CollisionAvoidance(Agent *agent, float height, float width, float dtime)
+Vector2D SteeringBehavior::PerimeterAvoidance(Agent *agent, int perimeterHeight, int perimeterWidth, float perimeterBorder, float dtime)
 {
-	float viewDirection = agent->getOrientation();
-	// Triangle points
-	Vector2D point0 = agent->getPosition();
-	Vector2D point2;
-	return 0;
+	Vector2D desiredVelocity;
+	Vector2D steeringForce;
+	if (agent->getPosition().x < perimeterBorder) {
+		desiredVelocity.x = agent->getMaxVelocity();
+	}
+	else if (agent->getPosition().x > perimeterWidth - perimeterBorder) {
+		desiredVelocity.x = -agent->getMaxVelocity();
+	}
+	if (agent->getPosition().y < perimeterBorder) {
+		desiredVelocity.y = agent->getMaxVelocity();
+	}
+	else if (agent->getPosition().y > perimeterHeight - perimeterBorder) {
+		desiredVelocity.y = -agent->getMaxVelocity();
+	}
+	if (desiredVelocity.Length() > 0.0f) {
+		steeringForce = desiredVelocity - agent->getVelocity();
+		steeringForce /= agent->getMaxVelocity();
+		steeringForce *= agent->getMaxForce();
+	}
+	else steeringForce = Wander(agent, agent->getOrientation(), &agent->wanderAngle, 50, 80, 70, dtime);
+	return steeringForce;
 }
