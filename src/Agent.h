@@ -7,6 +7,8 @@
 #include "Vector2D.h"
 #include "utils.h"
 #include "SteeringBehavior.h"
+#include "Arrow.h"
+#include "AuxLib.h"
 
 
 class Agent
@@ -44,6 +46,7 @@ public:
 	float getMaxVelocity();
 	float getMaxForce();
 	float getOrientation();
+	bool getDrawSprite();
 	float wanderAngle = 20.f;
 	void setPosition(Vector2D position);
 	void setTarget(Vector2D target);

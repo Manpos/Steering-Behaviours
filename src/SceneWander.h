@@ -12,9 +12,14 @@ public:
 	void update(float dtime, SDL_Event *event);
 	void draw();
 	const char* getTitle();
+
 private:
 	std::vector<Agent*> agents;
+	Vector2D steering_force;
 	Vector2D target;
+	Arrow *steeringForceArrow;
+
+	
 public:
 	// Wander fields
 	int wanderMaxChange = 50;

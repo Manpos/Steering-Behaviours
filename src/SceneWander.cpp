@@ -17,6 +17,7 @@ SceneWander::SceneWander()
 	wanderCircleRadius = 80;
 	wanderCircleCenter = {};
 	wanderDisplacementVector = {};
+	steeringForceArrow = new Arrow;
 }
 
 SceneWander::~SceneWander()
@@ -45,7 +46,7 @@ void SceneWander::update(float dtime, SDL_Event *event)
 
 	float angle = agents[0]->getOrientation();
 
-	Vector2D steering_force = agents[0]->Behavior()->Wander(agents[0], angle, &agents[0]->wanderAngle, wanderMaxChange,
+	steering_force = agents[0]->Behavior()->Wander(agents[0], angle, &agents[0]->wanderAngle, wanderMaxChange,
 		wanderCircleOffset, wanderCircleRadius, dtime);
 	agents[0]->update(steering_force, dtime, event);
 }
@@ -53,6 +54,10 @@ void SceneWander::update(float dtime, SDL_Event *event)
 void SceneWander::draw()
 {
 	agents[0]->draw();
+	if (agents[0]->getDrawSprite() == false) {
+		steeringForceArrow->Draw(agents[0]->getPosition(), agents[0]->getPosition() + steering_force);
+	}
+
 }
 
 const char* SceneWander::getTitle()

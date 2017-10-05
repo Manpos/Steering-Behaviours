@@ -1,8 +1,8 @@
 #include "Arrow.h"
 
-Arrow::Arrow() {};
 Arrow::Arrow() {
 	loadImage("../res/whiteArrow.png");
+	srcrect = { 0, 0, sprite_w, sprite_h };
 };
 
 Arrow::~Arrow() {};
@@ -26,6 +26,5 @@ bool Arrow::loadImage(char *path) {
 }
 
 void Arrow::Draw(Vector2D origin, Vector2D target) {
-	srcrect = { 0,0, sprite_w, sprite_h };
-	dstrect = {}
+	SDL_RenderDrawLine(TheApp::Instance()->getRenderer(), (int)origin.x, (int)origin.y, (int)(target.x), (int)(target.y));
 }
