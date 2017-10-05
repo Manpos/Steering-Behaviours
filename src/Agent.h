@@ -28,6 +28,7 @@ private:
 	float max_force;
 	float max_velocity;
 
+	
 	SDL_Color color;
 
 	SDL_Texture *sprite_texture;
@@ -39,6 +40,10 @@ private:
 public:
 	Agent();
 	~Agent();
+
+	//Wideframe arrows
+	Arrow *steeringForceArrow;
+	Arrow *velocityArrow;
 	SteeringBehavior *Behavior();
 	Vector2D getPosition();
 	Vector2D getTarget();

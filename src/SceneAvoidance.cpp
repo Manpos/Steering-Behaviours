@@ -36,7 +36,7 @@ void SceneAvoidance::update(float dtime, SDL_Event *event)
 		break;
 	}
 
-	Vector2D steering_force = agents[0]->Behavior()->PerimeterAvoidance(agents[0], 768, 1280, 20, dtime);
+	Vector2D steering_force = agents[0]->Behavior()->PerimeterAvoidance(agents[0], 768, 1280, 200, dtime);
 
 	agents[0]->update(steering_force, dtime, event);
 }
