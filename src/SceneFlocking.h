@@ -3,7 +3,6 @@
 #include "Scene.h"
 #include "Agent.h"
 
-#define MAX_AGENTS 5
 class SceneFlocking : public Scene
 {
 public:
