@@ -1,8 +1,7 @@
 #include "Arrow.h"
 
 Arrow::Arrow() {
-	loadImage("../res/whiteArrow.png");
-	srcrect = { 0, 0, sprite_w, sprite_h };
+
 };
 
 Arrow::~Arrow() {};
