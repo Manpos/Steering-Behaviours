@@ -127,6 +127,7 @@ Vector2D SteeringBehavior::Wander(Agent *agent, float angle, float *wanderAngle,
 	Vector2D targetPosition;
 	targetPosition.x = circleCenter.x + wanderCircleRadius * cos(targetAngle);
 	targetPosition.y = circleCenter.y + wanderCircleRadius * sin(targetAngle);
+	agent->target = targetPosition;
 
 	return Seek(agent, targetPosition, dtime);
 }

@@ -36,13 +36,17 @@ void SceneAvoidance::update(float dtime, SDL_Event *event)
 		break;
 	}
 
-	Vector2D steering_force = agents[0]->Behavior()->PerimeterAvoidance(agents[0], 768, 1280, 200, dtime);
+	steering_force = agents[0]->Behavior()->PerimeterAvoidance(agents[0], 768, 1280, 200, dtime);
 
 	agents[0]->update(steering_force, dtime, event);
 }
 
 void SceneAvoidance::draw() {
 	agents[0]->draw();
+	if (agents[0]->getDrawSprite() == false) {
+		agents[0]->steeringForceArrow->Draw(agents[0]->getPosition(), agents[0]->getPosition() + steering_force);
+		agents[0]->velocityArrow->Draw(agents[0]->getPosition(), (agents[0]->getPosition() + agents[0]->getVelocity()));
+	}
 }
 
 const char* SceneAvoidance::getTitle()

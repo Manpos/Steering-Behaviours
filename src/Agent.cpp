@@ -17,6 +17,10 @@ Agent::Agent() : sprite_texture(0),
 	             draw_sprite(false)
 {
 	steering_behavior = new SteeringBehavior;
+	steeringForceArrow = new Arrow;
+	velocityArrow = new Arrow;
+	steeringForceArrow->SetColor(255, 0, 0);
+	velocityArrow->SetColor(0, 255, 0);
 }
 
 Agent::~Agent()
@@ -154,7 +158,6 @@ void Agent::draw()
 	{
 		draw_circle(TheApp::Instance()->getRenderer(), (int)position.x, (int)position.y, 15, color.r, color.g, color.b, color.a);
 		SDL_RenderDrawLine(TheApp::Instance()->getRenderer(), (int)position.x, (int)position.y, (int)(position.x+15*cos(orientation*DEG2RAD)), (int)(position.y+15*sin(orientation*DEG2RAD)));
-		//SDL_RenderDrawLine(TheApp::Instance()->getRenderer(), (int)position.x, (int)position.y, (int)(target.x), (int)(target.y));
 	}
 }
 

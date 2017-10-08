@@ -17,7 +17,6 @@ SceneWander::SceneWander()
 	wanderCircleRadius = 80;
 	wanderCircleCenter = {};
 	wanderDisplacementVector = {};
-	steeringForceArrow = new Arrow;
 }
 
 SceneWander::~SceneWander()
@@ -55,7 +54,11 @@ void SceneWander::draw()
 {
 	agents[0]->draw();
 	if (agents[0]->getDrawSprite() == false) {
-		steeringForceArrow->Draw(agents[0]->getPosition(), agents[0]->getPosition() + steering_force);
+		agents[0]->steeringForceArrow->Draw(agents[0]->getPosition(), agents[0]->getPosition() + steering_force);
+		agents[0]->velocityArrow->Draw(agents[0]->getPosition(), (agents[0]->getPosition() + agents[0]->getVelocity()));
+		draw_circle(TheApp::Instance()->getRenderer(), (int)agents[0]->getTarget().x, (int)agents[0]->getTarget().y, 15, 0, 0, 255, 255);
+		Vector2D offsetPosition = agents[0]->getPosition() + agents[0]->getVelocity().Normalize() * wanderCircleOffset;
+		draw_circle(TheApp::Instance()->getRenderer(), offsetPosition.x, offsetPosition.y, wanderCircleRadius, 0, 0, 255, 255);
 	}
 
 }

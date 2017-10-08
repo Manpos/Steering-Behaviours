@@ -43,7 +43,7 @@ void SceneEvade::update(float dtime, SDL_Event *event)
 	}
 
 	agents[0]->setTarget(agents[1]->getPosition());
-	Vector2D steering_force = agents[1]->Behavior()->Arrive(agents[1], agents[1]->getTarget(), 200, dtime);
+	steering_force = agents[1]->Behavior()->Arrive(agents[1], agents[1]->getTarget(), 200, dtime);
 	agents[1]->update(steering_force, dtime, event);
 	steering_force = agents[0]->Behavior()->Evade(agents[0], agents[1], dtime);
 	agents[0]->update(steering_force, dtime, event);
@@ -55,6 +55,14 @@ void SceneEvade::draw()
 	for (int i = 0; i < (int)agents.size(); i++)
 	{
 		agents[i]->draw();
+	}
+
+	if (agents[0]->getDrawSprite() == false) {
+		for (int i = 0; i < agents.size(); i++) {
+			agents[i]->steeringForceArrow->Draw(agents[i]->getPosition(), agents[i]->getPosition() + steering_force);
+			agents[i]->velocityArrow->Draw(agents[i]->getPosition(), (agents[i]->getPosition() + agents[i]->getVelocity()));
+		}
+		
 	}
 }
 

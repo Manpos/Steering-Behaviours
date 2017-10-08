@@ -35,7 +35,7 @@ void SceneFlee::update(float dtime, SDL_Event *event)
 	default:
 		break;
 	}
-	Vector2D steering_force = agents[0]->Behavior()->Flee(agents[0],agents[0]->getTarget(),dtime);
+	steering_force = agents[0]->Behavior()->Flee(agents[0],agents[0]->getTarget(),dtime);
 	agents[0]->update(steering_force, dtime, event);
 }
 
@@ -43,6 +43,10 @@ void SceneFlee::draw()
 {
 	draw_circle(TheApp::Instance()->getRenderer(), (int)target.x, (int)target.y, 15, 255, 0, 0, 255);
 	agents[0]->draw();
+	if (agents[0]->getDrawSprite() == false) {
+		agents[0]->steeringForceArrow->Draw(agents[0]->getPosition(), agents[0]->getPosition() + steering_force);
+		agents[0]->velocityArrow->Draw(agents[0]->getPosition(), (agents[0]->getPosition() + agents[0]->getVelocity()));
+	}
 }
 
 const char* SceneFlee::getTitle()

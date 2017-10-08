@@ -7,14 +7,21 @@
 using namespace std;
 
 class Arrow {
+
+	struct colorRGB {
+		int r = 255;
+		int g = 255;
+		int b = 255;
+	};
+
 private:
-	SDL_Texture *arrowImage;
-	SDL_Rect srcrect, dstrect;
-	int sprite_w, sprite_h;
+	colorRGB color;
+
 public:
 	Arrow();
 	~Arrow();
-	bool loadImage(char* path);
+
+	void SetColor(int r, int g, int b);
 	void Draw(Vector2D origin, Vector2D target);
 	
 };
