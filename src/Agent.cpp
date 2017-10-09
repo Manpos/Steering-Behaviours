@@ -51,6 +51,10 @@ Vector2D Agent::getVelocity()
 	return velocity;
 }
 
+Vector2D Agent::getWanderTarget() {
+	return wanderTarget;
+}
+
 float Agent::getMaxVelocity()
 {
 	return max_velocity;
@@ -82,6 +86,11 @@ void Agent::setTarget(Vector2D _target)
 void Agent::setVelocity(Vector2D _velocity)
 {
 	velocity = _velocity;
+}
+
+void Agent::setWanderTarget(Vector2D _wanderTarget) 
+{
+	wanderTarget = _wanderTarget;
 }
 
 void Agent::setOrientation(float newOrientation)

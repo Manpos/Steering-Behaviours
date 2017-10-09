@@ -21,6 +21,8 @@ private:
 	Vector2D velocity;
 	Vector2D target;
 
+	Vector2D wanderTarget;
+
 	Vector2D *collisionDetection;
 
 	float mass;
@@ -48,6 +50,7 @@ public:
 	Vector2D getPosition();
 	Vector2D getTarget();
 	Vector2D getVelocity();
+	Vector2D getWanderTarget();
 	float getMaxVelocity();
 	float getMaxForce();
 	float getOrientation();
@@ -56,6 +59,7 @@ public:
 	void setPosition(Vector2D position);
 	void setTarget(Vector2D target);
 	void setVelocity(Vector2D velocity);
+	void setWanderTarget(Vector2D wTarget);
 	void setOrientation(float);
 	void setMass(float mass);
 	void setColor(Uint8 r, Uint8 g, Uint8 b, Uint8 a);
