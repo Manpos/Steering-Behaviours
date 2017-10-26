@@ -3,12 +3,12 @@
 #include "Scene.h"
 #include "Agent.h"
 
-class SceneArrival :
+class SceneEvade :
 	public Scene
 {
 public:
-	SceneArrival();
-	~SceneArrival();
+	SceneEvade();
+	~SceneEvade();
 	void update(float dtime, SDL_Event *event);
 	void draw();
 	const char* getTitle();
@@ -17,4 +17,3 @@ private:
 	Vector2D target;
 	Vector2D steering_force;
 };
-

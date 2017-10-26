@@ -7,6 +7,8 @@
 #include "Vector2D.h"
 #include "utils.h"
 #include "SteeringBehavior.h"
+#include "Arrow.h"
+#include "AuxLib.h"
 
 
 class Agent
@@ -19,11 +21,16 @@ private:
 	Vector2D velocity;
 	Vector2D target;
 
+	Vector2D wanderTarget;
+
+	Vector2D *collisionDetection;
+
 	float mass;
 	float orientation;
 	float max_force;
 	float max_velocity;
 
+	
 	SDL_Color color;
 
 	SDL_Texture *sprite_texture;
@@ -35,14 +42,25 @@ private:
 public:
 	Agent();
 	~Agent();
+
+	//Wideframe arrows
+	Arrow *steeringForceArrow;
+	Arrow *velocityArrow;
 	SteeringBehavior *Behavior();
 	Vector2D getPosition();
 	Vector2D getTarget();
 	Vector2D getVelocity();
+	Vector2D getWanderTarget();
 	float getMaxVelocity();
+	float getMaxForce();
+	float getOrientation();
+	bool getDrawSprite();
+	float wanderAngle = 20.f;
 	void setPosition(Vector2D position);
 	void setTarget(Vector2D target);
 	void setVelocity(Vector2D velocity);
+	void setWanderTarget(Vector2D wTarget);
+	void setOrientation(float);
 	void setMass(float mass);
 	void setColor(Uint8 r, Uint8 g, Uint8 b, Uint8 a);
 	void update(Vector2D steering_force, float dtime, SDL_Event *event);

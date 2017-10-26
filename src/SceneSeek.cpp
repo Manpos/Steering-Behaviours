@@ -10,6 +10,7 @@ SceneSeek::SceneSeek()
 	agent->loadSpriteTexture("../res/soldier.png", 4);
 	agents.push_back(agent);
 	target = Vector2D(640, 360);
+	
 }
 
 SceneSeek::~SceneSeek()
@@ -35,14 +36,21 @@ void SceneSeek::update(float dtime, SDL_Event *event)
 	default:
 		break;
 	}
-	Vector2D steering_force = agents[0]->Behavior()->Seek(agents[0], agents[0]->getTarget(), dtime);
+	steering_force = agents[0]->Behavior()->Seek(agents[0], agents[0]->getTarget(), dtime);
 	agents[0]->update(steering_force, dtime, event);
+
+	AuxLib::deltaTime = dtime;
 }
 
 void SceneSeek::draw()
 {
 	draw_circle(TheApp::Instance()->getRenderer(), (int)target.x, (int)target.y, 15, 255, 0, 0, 255);
 	agents[0]->draw();
+
+	if (agents[0]->getDrawSprite() == false) {
+		agents[0]->steeringForceArrow->Draw(agents[0]->getPosition(), agents[0]->getPosition() + steering_force);
+		agents[0]->velocityArrow->Draw(agents[0]->getPosition(), (agents[0]->getPosition() + agents[0]->getVelocity()));
+	}
 }
 
 const char* SceneSeek::getTitle()

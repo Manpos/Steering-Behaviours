@@ -1,18 +1,18 @@
-#include "SceneFlee.h"
+#include "SceneAvoidance.h"
 
 using namespace std;
 
-SceneFlee::SceneFlee()
+SceneAvoidance::SceneAvoidance() 
 {
 	Agent *agent = new Agent;
 	agent->setPosition(Vector2D(640,360));
 	agent->setTarget(Vector2D(640, 360));
+	agent->setMass(0.035);
 	agent->loadSpriteTexture("../res/soldier.png", 4);
 	agents.push_back(agent);
-	target = Vector2D(640, 360);
 }
 
-SceneFlee::~SceneFlee()
+SceneAvoidance::~SceneAvoidance() 
 {
 	for (int i = 0; i < (int)agents.size(); i++)
 	{
@@ -20,7 +20,7 @@ SceneFlee::~SceneFlee()
 	}
 }
 
-void SceneFlee::update(float dtime, SDL_Event *event)
+void SceneAvoidance::update(float dtime, SDL_Event *event)
 {
 	/* Keyboard & Mouse events */
 	switch (event->type) {
@@ -35,13 +35,13 @@ void SceneFlee::update(float dtime, SDL_Event *event)
 	default:
 		break;
 	}
-	steering_force = agents[0]->Behavior()->Flee(agents[0],agents[0]->getTarget(),dtime);
+
+	steering_force = agents[0]->Behavior()->PerimeterAvoidance(agents[0], 768, 1280, 200, dtime);
+
 	agents[0]->update(steering_force, dtime, event);
 }
 
-void SceneFlee::draw()
-{
-	draw_circle(TheApp::Instance()->getRenderer(), (int)target.x, (int)target.y, 15, 255, 0, 0, 255);
+void SceneAvoidance::draw() {
 	agents[0]->draw();
 	if (agents[0]->getDrawSprite() == false) {
 		agents[0]->steeringForceArrow->Draw(agents[0]->getPosition(), agents[0]->getPosition() + steering_force);
@@ -49,7 +49,7 @@ void SceneFlee::draw()
 	}
 }
 
-const char* SceneFlee::getTitle()
+const char* SceneAvoidance::getTitle()
 {
-	return "SDL Steering Behaviors :: Flee Demo";
+	return "SDL Steering Behaviors :: Avoidance Demo";
 }

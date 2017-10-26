@@ -1,4 +1,5 @@
 #include "SceneWander.h"
+#include "AuxLib.h"
 
 using namespace std;
 
@@ -14,7 +15,6 @@ SceneWander::SceneWander()
 	wanderMaxChange = 50;
 	wanderCircleOffset = 70;
 	wanderCircleRadius = 80;
-	wanderAngle = 0.0f;
 	wanderCircleCenter = {};
 	wanderDisplacementVector = {};
 }
@@ -42,9 +42,10 @@ void SceneWander::update(float dtime, SDL_Event *event)
 	default:
 		break;
 	}
-	Vector2D velocity = agents[0]->getVelocity();
-	float angle = (float)(atan2(velocity.y, velocity.x) * RAD2DEG);
-	Vector2D steering_force = agents[0]->Behavior()->Wander(agents[0], angle, &wanderAngle, wanderMaxChange,
+
+	float angle = agents[0]->getOrientation();
+
+	steering_force = agents[0]->Behavior()->Wander(agents[0], angle, &agents[0]->wanderAngle, wanderMaxChange,
 		wanderCircleOffset, wanderCircleRadius, dtime);
 	agents[0]->update(steering_force, dtime, event);
 }
@@ -52,6 +53,14 @@ void SceneWander::update(float dtime, SDL_Event *event)
 void SceneWander::draw()
 {
 	agents[0]->draw();
+	if (agents[0]->getDrawSprite() == false) {
+		agents[0]->steeringForceArrow->Draw(agents[0]->getPosition(), agents[0]->getPosition() + steering_force);
+		agents[0]->velocityArrow->Draw(agents[0]->getPosition(), (agents[0]->getPosition() + agents[0]->getVelocity()));
+		draw_circle(TheApp::Instance()->getRenderer(), (int)agents[0]->getWanderTarget().x, (int)agents[0]->getWanderTarget().y, 15, 0, 0, 255, 255);
+		Vector2D offsetPosition = agents[0]->getPosition() + agents[0]->getVelocity().Normalize() * wanderCircleOffset;
+		draw_circle(TheApp::Instance()->getRenderer(), offsetPosition.x, offsetPosition.y, wanderCircleRadius, 0, 0, 255, 255);
+	}
+
 }
 
 const char* SceneWander::getTitle()

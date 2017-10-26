@@ -2,6 +2,7 @@
 #include <vector>
 #include "Scene.h"
 #include "Agent.h"
+#include "AuxLib.h"
 
 class SceneSeek :
 	public Scene
@@ -15,5 +16,7 @@ public:
 private:
 	std::vector<Agent*> agents;
 	Vector2D target;
+	Vector2D steering_force;
+	
 };
 

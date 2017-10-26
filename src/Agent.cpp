@@ -17,6 +17,10 @@ Agent::Agent() : sprite_texture(0),
 	             draw_sprite(false)
 {
 	steering_behavior = new SteeringBehavior;
+	steeringForceArrow = new Arrow;
+	velocityArrow = new Arrow;
+	steeringForceArrow->SetColor(255, 0, 0);
+	velocityArrow->SetColor(0, 255, 0);
 }
 
 Agent::~Agent()
@@ -47,9 +51,26 @@ Vector2D Agent::getVelocity()
 	return velocity;
 }
 
+Vector2D Agent::getWanderTarget() {
+	return wanderTarget;
+}
+
 float Agent::getMaxVelocity()
 {
 	return max_velocity;
+}
+
+float Agent::getMaxForce() 
+{
+	return max_force;
+}
+
+float Agent::getOrientation() {
+	return orientation;
+}
+
+bool Agent::getDrawSprite() {
+	return draw_sprite;
 }
 
 void Agent::setPosition(Vector2D _position)
@@ -65,6 +86,16 @@ void Agent::setTarget(Vector2D _target)
 void Agent::setVelocity(Vector2D _velocity)
 {
 	velocity = _velocity;
+}
+
+void Agent::setWanderTarget(Vector2D _wanderTarget) 
+{
+	wanderTarget = _wanderTarget;
+}
+
+void Agent::setOrientation(float newOrientation)
+{
+	orientation = newOrientation;
 }
 
 void Agent::setMass(float _mass)
@@ -101,7 +132,12 @@ void Agent::update(Vector2D steering_force, float dtime, SDL_Event *event)
 
 
 	// Update orientation
-	orientation = (float)(atan2(velocity.y, velocity.x) * RAD2DEG);
+	float angle = orientation;
+	float angleToUpdate = (float)(atan2(velocity.y, velocity.x) * RAD2DEG);
+	float angleDelta = angleToUpdate - angle;
+	if (angleDelta > 180.0f) { angle = (angle + 360.f); }
+	else if (angleDelta < -180.f) { angle = (angle - 360.f); }
+	orientation = AuxLib::lerp(angle, angleToUpdate, 0.01f);
 
 
 	// Trim position values to window size
